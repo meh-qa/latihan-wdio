@@ -17,6 +17,7 @@
     },
     "scripts": {
         "test": "rm -r allure-results && wdio run wdio.conf.js",
+        "testonly" : "npx wdio wdio.conf.js --spec",
         "allure": "allure open"
     }
 }

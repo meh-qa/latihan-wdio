@@ -122,3 +122,16 @@ When(/^I choose male on jenis kelamin radio button$/, async () => {
 When(/^I click Selanjutnya button$/, async () => {
     await PendaftaranPage.clickSelajutnyaButton();
 })
+
+When(/^I choose ruangan Spesialis Jantung$/, async () => {
+    await PendaftaranPage.chooseRuanganSpesialisJantung();
+})
+
+When(/^I click Yes$/, async () => {
+    // await browser.pause(5000);
+    await PendaftaranPage.clickYes();
+})
+
+When(/^I can see patient that already inputed on the first row$/, async () => {
+    await PendaftaranPage.verifyNewPatientInputed();
+})
