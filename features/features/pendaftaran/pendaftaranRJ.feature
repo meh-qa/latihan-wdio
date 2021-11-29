@@ -20,7 +20,11 @@ Feature: Dhealth Daftar RJ - Positive Case
     And I input nama pasien field
     And I input tanggal lahir
     And I choose male on jenis kelamin radio button
-    Then I click Selanjutnya button
+    And I click Selanjutnya button
+    And I choose ruangan Spesialis Jantung
+    And I click submit
+    # And I click Yes
+    Then I can see patient that already inputed on the first row
 
     Examples:
       | username     | password             |

@@ -16,7 +16,8 @@ class PendaftaranPage extends Page {
     }
 
     get yesBtn() {
-        return $('.button-yes')
+        // return $('.button-yes')
+        return $('//button[@class="button-yes"]')
     }
 
     get loketAsuransi() {
@@ -53,7 +54,8 @@ class PendaftaranPage extends Page {
 
     get tanggalLahirPasien() {
         // return $('.picker__input')
-        return $('#frm-pasien-tanggal_lahir')
+        return $('//input[@id="frm-pasien-tanggal_lahir"]')
+        // return $('#frm-pasien-tanggal_lahir')
     }
 
     get maleJenisKelamin() {
@@ -64,22 +66,33 @@ class PendaftaranPage extends Page {
         return $('.actions > ul:nth-child(1) > li:nth-child(2) > a')
     }
 
-    // get closeSOAPBtn() {
-    //     return $('.close')
-    // }
+    get tanggalLahirPicker() {
+        return $('span.input-group-addon:nth-child(6)')
+    }
 
-    // get btnAmbulan(){
-    //     return $('div.col-md-1:nth-child(1) > div')
-    // }
+    get tahunLahir(){
+        return $('.picker__select--year')
+    }
 
-    // get tampilkanLebihBanyak(){
-    //     return $('button.btn:nth-child(1)')
-    // }
+    get hariLahir1(){
+        return $('.picker--opened > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > table:nth-child(2) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(2) > div')
+    }
 
-    // get menuPendaftaran(){
-    //     return $('div.col-md-1:nth-child(15) > div:nth-child(1)')
-    // }
+    get tahunLahir2015(){
+        return $('/html/body/div[4]/div/div/div[1]/div/div/div[2]/form/div/div/div[2]/div/div[2]/div[2]/fieldset[2]/div[1]/div/div/div[1]/div[3]/div[2]/div/div/div[1]/div/div/div/div/div[1]/select[1]/option[4]')
+    }
 
+    get dropdownRuangan(){
+        return $('.select2-container--focus')
+    }
+
+    get ruanganSpesialisJantung(){
+        return $('//li[text()="SPESIALIS JANTUNG"]')
+    }
+
+    get topPatientName(){
+        return $('tr.odd:nth-child(1) > td:nth-child(6)')
+    }
     // get btnPendaftaranRJ(){
     //     return $('div.col-md-4:nth-child(5)')
     // }
@@ -107,7 +120,9 @@ class PendaftaranPage extends Page {
     }
 
     async clickYes () {
+        // await this.yesBtn.waitForClickable({ timeout: 3000 });
         await this.yesBtn.click();
+        // await browser.pause(5000);
     }
 
     async clickLoketAsuransi () {
@@ -133,16 +148,21 @@ class PendaftaranPage extends Page {
 
     async clickSubmit () {
         await this.btnSubmit.click()
-        // await browser.pause(3000);
+        await browser.pause(5000);
     }
 //////////////////////////////////////
     async inputNamaPasien () {
+        await browser.pause(1000)
         await this.namaPasien.setValue('soleh')
     }
 
     async inputTanggalLahirPasien () {
-        await this.tanggalLahirPasien.setValue('11-11-1991')
-        await this.tanggalLahirPasien.setValue('11-11-1991')
+        await this.tanggalLahirPicker.click()
+        await this.tahunLahir.click()
+        await this.tahunLahir2015.click()
+        await this.hariLahir1.click()
+        // await this.tanggalLahirPasien.setValue('11-11-1991')
+        // await this.tanggalLahirPasien.setValue('11-11-1991')
         await browser.pause(5000)
     }
 
@@ -153,6 +173,17 @@ class PendaftaranPage extends Page {
     async clickSelajutnyaButton () {
         await this.selanjutnyaBtn.click();
         await browser.pause(3000)
+    }
+
+    async chooseRuanganSpesialisJantung () {
+        await this.dropdownRuangan.click()
+        await this.searchField.setValue('SPESIALIS JANTUNG')
+        await this.ruanganSpesialisJantung.click()
+        await browser.pause(10000)
+    }
+
+    async verifyNewPatientInputed () {
+        await expect(this.topPatientName).toHaveText('soleh')
     }
         
 }
